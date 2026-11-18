@@ -97,4 +97,65 @@ pytest tests/unit/ → 25 passed in 0.40s （全件合格）
 - OI-04: デプロイスクリプトの実行タイミング（Phase 3設計時）
 - OI-13: `questions.yaml` フォーマット仕様確定（Phase 3実装前）
 
+---
+
+## 2026-11-18 ── Phase 3 実装
+
+### OI-01 確定（Phase 3開始直後）
+
+セッション開始時のシステムリマインダーに `exhibition-oi01-test` が表示されていた。
+**プロジェクトレベル `.claude/skills/` は正常に認識されることを確認。** テストスキルを削除した。
+
+### タスク 3-01〜3-03: Deployment Setup・Museum Onboarding・questions.yaml
+
+**作成ファイル：**
+
+| ファイル | 内容 |
+|---------|------|
+| `core/yaml_io.py` | YAML読み書きユーティリティ（ruamel.yaml + Pydantic v2） |
+| `core/models/profile_manifest.py` | 承認済みプロファイルのマニフェストモデル（OI-06解決） |
+| `core/approval.py` | 承認・保護ロジック（4層保護：版管理/SHA-256/読取専用/監査） |
+| `core/onboarding.py` | Onboardingセッション状態機械（作成/再開/回答/完了/中断/ドラフト生成） |
+| `scripts/onboarding_cli.py` | OnboardingセッションCLI（スキルから呼ばれる） |
+| `scripts/approval_cli.py` | 承認CLI（スキルから呼ばれる） |
+| `core/skills/exhibition-deployment-setup/SKILL.md` | Deployment Setupスキル（P0、10ステップのセットアップガイド） |
+| `core/skills/exhibition-museum-onboarding/SKILL.md` | Museum Onboardingスキル（P0、ヒアリング→承認の完全フロー） |
+| `core/skills/exhibition-museum-onboarding/references/questions.yaml` | ヒアリング質問定義（31問 + ドメイン別8問、OI-13解決） |
+
+**解決済み未決事項：**
+
+| ID | 決定内容 |
+|----|---------|
+| OI-01 | 確定：プロジェクトレベルスキル配置は動作する |
+| OI-04 | 手動実行を基本。Deployment SetupスキルがSTEP 8で案内 |
+| OI-06 | `profile-manifest.yaml` にSHA-256ハッシュを記録する方式で確定 |
+| OI-07 | 日本語固定で実装（多言語対応はPhase後期） |
+| OI-10 | Claude Code対話型を主とする（SKILL.mdガイド形式） |
+| OI-13 | `questions.yaml` フォーマット確定（phase_id/questions/domain_questions の3セクション） |
+
+### タスク 3-07〜3-09: 受入試験
+
+**テスト結果：**
+
+```
+pytest tests/ → 78 passed in 1.86s （全件合格）
+  うち Phase 3新規テスト：53件
+    test_yaml_io.py     8件
+    test_approval.py   20件
+    test_onboarding.py 25件
+    test_at09.py       11件（AT-09受入試験）
+```
+
+**AT-09（データ保護）合格内容：**
+- 承認済みファイルへの直接上書き → PermissionError（合格）
+- パストラバーサル攻撃 → SecurityError（合格）
+- 複数館のデータ独立性 → 互いに干渉しないことを確認（合格）
+
+### 未解決で Phase 4 に持越し
+
+- OI-08: 展示制作テンプレート初期版（歴史館1館分の架空データ）
+- OI-12: `common-settings.yaml` スキーマ定義
+- AT-01: 対話型オンボーディングの完全シナリオテスト（Claudeとの対話が必要なため手動）
+- AT-08: セッション再開シナリオの完全シナリオテスト（同上）
+
 <!-- 以降、各作業完了後に追記 -->

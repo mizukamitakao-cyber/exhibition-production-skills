@@ -1,0 +1,285 @@
+# questions.yaml — Museum Onboarding ヒアリング質問定義
+# 設計仕様: docs/design/04_ONBOARDING_DESIGN.md §3.2
+# OI-13 解決: このファイルがフォーマット仕様の確定版
+#
+# field_type:
+#   string   - 1つの文字列
+#   list     - 読点（、）またはカンマ区切りのリスト
+#   int      - 整数（文字中の数字を抽出）
+#   dict_note - 複雑な辞書型（テキストのままノートとして保持）
+
+version: "1.0"
+
+phases:
+  - phase_id: "basic"
+    display_name: "基本情報"
+    priority: "required"
+    questions:
+      - id: "B-01"
+        text: "館の正式名称を教えてください。"
+        field: "basic.name"
+        field_type: "string"
+        required: true
+
+      - id: "B-02"
+        text: "施設の種別はどれですか（博物館・資料館・文化施設・その他）。"
+        field: "basic.type"
+        field_type: "string"
+        required: true
+
+      - id: "B-03"
+        text: "施設の設置目的・使命を一言で表すと何でしょうか？"
+        field: "basic.purpose"
+        field_type: "string"
+        required: true
+
+      - id: "B-04"
+        text: "専門分野を教えてください（歴史・美術・自然史・科学など、複数の場合は読点区切りで）。"
+        field: "basic.domains"
+        field_type: "list"
+        required: true
+
+      - id: "B-05"
+        text: "展示制作の頻度・規模感を教えてください（例：年1回の企画展、常設展の改訂など）。"
+        field: "exhibition_policy.purpose"
+        field_type: "string"
+        required: false
+
+  - phase_id: "visitors"
+    display_name: "来館者・アクセシビリティ"
+    priority: "required"
+    questions:
+      - id: "V-01"
+        text: "主な来館者層を教えてください（例：一般市民・小中学生・研究者・観光客）。"
+        field: "visitors.target_groups"
+        field_type: "list"
+        required: true
+
+      - id: "V-02"
+        text: "展示で使用する言語を教えてください（日本語のみ、日英併記、など）。"
+        field: "visitors.languages"
+        field_type: "list"
+        required: true
+
+      - id: "V-03"
+        text: "アクセシビリティ対応として現在実施していること・求めるものはありますか（任意）。"
+        field: "visitors.accessibility_requirements"
+        field_type: "list"
+        required: false
+
+      - id: "V-04"
+        text: "展示で特に配慮が必要な来館者層はありますか（子ども向け・高齢者・外国人など）。"
+        field: "visitors.target_groups"
+        field_type: "list"
+        required: false
+
+  - phase_id: "exhibition_policy"
+    display_name: "展示方針・制限"
+    priority: "required"
+    questions:
+      - id: "EP-01"
+        text: "展示の主な教育目的は何ですか（知識の提供・体験・記録の継承など）。"
+        field: "exhibition_policy.purpose"
+        field_type: "string"
+        required: true
+
+      - id: "EP-02"
+        text: "展示で伝えたい価値・重点テーマはありますか。"
+        field: "exhibition_policy.key_themes"
+        field_type: "list"
+        required: true
+
+      - id: "EP-03"
+        text: "表現上の禁止事項・避けるべき内容はありますか（政治・宗教・個人情報など）。"
+        field: "exhibition_policy.content_restrictions"
+        field_type: "list"
+        required: true
+
+      - id: "EP-04"
+        text: "教育方針（学習指導要領との対応・体験型重視など）はありますか（任意）。"
+        field: "exhibition_policy.education_policy"
+        field_type: "string"
+        required: false
+
+  - phase_id: "research"
+    display_name: "調査・出典基準"
+    priority: "required"
+    questions:
+      - id: "R-01"
+        text: "調査で優先したい資料種別はありますか（収蔵品・一次資料・学術論文など）。"
+        field: "research.priority_sources"
+        field_type: "list"
+        required: true
+
+      - id: "R-02"
+        text: "出典の表記方式はありますか（脚注形式・括弧形式・なし、など）。"
+        field: "research.citation_style"
+        field_type: "string"
+        required: true
+
+      - id: "R-03"
+        text: "未確認・不明な情報が残る場合の取り扱い方針はありますか。"
+        field: "research.unverified_handling"
+        field_type: "string"
+        required: true
+
+      - id: "R-04"
+        text: "AI生成コンテンツの取り扱い方針はありますか（使用可・要確認・禁止など）。"
+        field: "research.ai_content_policy"
+        field_type: "string"
+        required: true
+
+  - phase_id: "writing"
+    display_name: "執筆規程"
+    priority: "required"
+    questions:
+      - id: "W-01"
+        text: "展示文の文体を教えてください（例：である体・ですます体）。"
+        field: "writing.style"
+        field_type: "string"
+        required: true
+
+      - id: "W-02"
+        text: "パネル（大型説明文）の標準文字数の目安はありますか（例：300字以内）。"
+        field: "writing.max_chars_panel"
+        field_type: "int"
+        required: true
+
+      - id: "W-03"
+        text: "キャプション（資料説明）の標準文字数の目安はありますか（例：80字以内）。"
+        field: "writing.max_chars_caption"
+        field_type: "int"
+        required: true
+
+      - id: "W-04"
+        text: "統一表記が必要な専門用語・固有名詞はありますか（表記ゆれ防止、任意）。"
+        field: "writing.vocabulary"
+        field_type: "dict_note"
+        required: false
+
+      - id: "W-05"
+        text: "表記ルール（漢字・かな・記号など）の規程はありますか（任意）。"
+        field: "writing.notation_rules"
+        field_type: "list"
+        required: false
+
+  - phase_id: "design"
+    display_name: "デザイン仕様"
+    priority: "optional"
+    questions:
+      - id: "D-01"
+        text: "デザインガイドや標準仕様書はありますか（ある場合はパスまたは内容を共有、任意）。"
+        field: "design.design_guide_path"
+        field_type: "string"
+        required: false
+
+      - id: "D-02"
+        text: "パネルの標準サイズ・向きはありますか（例：B1縦、任意）。"
+        field: "design.panel_specs"
+        field_type: "dict_note"
+        required: false
+
+  - phase_id: "quality"
+    display_name: "品質管理基準"
+    priority: "required"
+    questions:
+      - id: "Q-01"
+        text: "展示内容のレビューで特に重視する観点はありますか（歴史的正確性・来館者視点など）。"
+        field: "quality.advocate_criteria"
+        field_type: "list"
+        required: true
+
+      - id: "Q-02"
+        text: "品質確認で必ず確認すべき要件はありますか（表記統一・著作権確認・文字数など）。"
+        field: "quality.reviewer_criteria"
+        field_type: "list"
+        required: true
+
+      - id: "Q-03"
+        text: "外部の専門家・監修者によるレビューはありますか（任意）。"
+        field: "quality.advocate_criteria"
+        field_type: "list"
+        required: false
+
+  - phase_id: "operations"
+    display_name: "承認フロー・運用"
+    priority: "required"
+    questions:
+      - id: "O-01"
+        text: "展示制作の承認段階を教えてください（担当者確認→館長承認、など）。"
+        field: "operations.approval_flow"
+        field_type: "list"
+        required: true
+
+      - id: "O-02"
+        text: "主な担当者と役割を教えてください（学芸員・デザイナー・館長など）。"
+        field: "operations.roles"
+        field_type: "dict_note"
+        required: true
+
+      - id: "O-03"
+        text: "成果物の提出形式はありますか（Word・PDF・Excelなど）。"
+        field: "operations.output_formats"
+        field_type: "list"
+        required: true
+
+      - id: "O-04"
+        text: "データの保存・共有に関する制約はありますか（クラウド禁止・庁内ネットワークのみなど）。"
+        field: "data_management.ai_input_restrictions"
+        field_type: "list"
+        required: true
+
+# 専門分野別の追加質問
+# basic.domains の値に応じて提示する
+domain_questions:
+  history:
+    - id: "DH-01"
+      text: "年代の表記方式を教えてください（西暦・和暦・並記など）。"
+      field: "writing.notation_rules"
+      field_type: "list"
+      required: false
+
+    - id: "DH-02"
+      text: "特定の歴史観や解釈に関する方針はありますか（複数説の扱い方など）。"
+      field: "exhibition_policy.content_restrictions"
+      field_type: "list"
+      required: false
+
+  art:
+    - id: "DA-01"
+      text: "作品保護に関する表現制限はありますか（撮影禁止・複製禁止など）。"
+      field: "exhibition_policy.content_restrictions"
+      field_type: "list"
+      required: false
+
+    - id: "DA-02"
+      text: "来歴・権利の確認基準を教えてください（著作権・所有権の確認フローなど）。"
+      field: "research.priority_sources"
+      field_type: "list"
+      required: false
+
+  natural_history:
+    - id: "DN-01"
+      text: "学名・和名の表記方針を教えてください（学名斜体・和名カタカナなど）。"
+      field: "writing.notation_rules"
+      field_type: "list"
+      required: false
+
+    - id: "DN-02"
+      text: "絶滅危惧種・保護動植物に関する表現ガイドラインはありますか。"
+      field: "exhibition_policy.content_restrictions"
+      field_type: "list"
+      required: false
+
+  science:
+    - id: "DS-01"
+      text: "技術的正確性の基準を教えてください（専門家監修の有無・精度要件など）。"
+      field: "quality.advocate_criteria"
+      field_type: "list"
+      required: false
+
+    - id: "DS-02"
+      text: "非専門家向け解説のレベル感を教えてください（小学生にも分かる・高校生レベルなど）。"
+      field: "exhibition_policy.education_policy"
+      field_type: "string"
+      required: false

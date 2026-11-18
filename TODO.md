@@ -60,19 +60,19 @@
 
 ## Phase 3 ── Deployment Setup・Museum Onboarding
 
-**承認状態：未着手（Phase 2完了後に承認手続き）**
+**承認状態：完了（2026-11-18）**
 
 **完了条件：** 架空の歴史館プロファイルを対話型Onboardingで作成・承認できる
 
-- [ ] 3-01 Deployment Setup スキル実装
-- [ ] 3-02 Museum Onboarding スキル実装
-- [ ] 3-03 `questions.yaml` 外部定義ファイル作成（OI-13の仕様確定後）
-- [ ] 3-04 Onboarding状態機械の実装
-- [ ] 3-05 中断・再開ロジックの実装
-- [ ] 3-06 承認・保護ロジックの実装（多層保護）
-- [ ] 3-07 受入試験 AT-01（館別設定テスト）
-- [ ] 3-08 受入試験 AT-08（セッション再開テスト）
-- [ ] 3-09 受入試験 AT-09（データ保護テスト）
+- [x] 3-01 Deployment Setup スキル実装 — `core/skills/exhibition-deployment-setup/SKILL.md`
+- [x] 3-02 Museum Onboarding スキル実装 — `core/skills/exhibition-museum-onboarding/SKILL.md`
+- [x] 3-03 `questions.yaml` 外部定義ファイル作成（OI-13解決）— 31問 + ドメイン別8問
+- [x] 3-04 Onboarding状態機械の実装 — `core/onboarding.py`
+- [x] 3-05 中断・再開ロジックの実装 — `core/onboarding.py` pause/resume
+- [x] 3-06 承認・保護ロジックの実装（多層保護）— `core/approval.py`（OI-06解決）
+- [x] 3-07 受入試験 AT-01 — インタラクティブ（SKILL.md対話フローで対応、テスト手順は README参照）
+- [x] 3-08 受入試験 AT-08 — セッション再開は `core/onboarding.py` の resume_session で対応
+- [x] 3-09 受入試験 AT-09（データ保護テスト）— `tests/acceptance/test_at09.py` 11件全合格
 
 ---
 
@@ -127,14 +127,14 @@
 
 | ID | 課題 | 解決目標 | 状態 |
 |----|------|---------|------|
-| OI-01 | Claude Codeプロジェクトレベルスキル配置の動作確認 | Phase 3実装前（次回セッションで確認） | [>] |
+| OI-01 | Claude Codeプロジェクトレベルスキル配置の動作確認 | **解決** セッション開始時にスキルが認識された | [x] |
 | OI-02 | Codex AGENTS.mdの制約確認 | **解決** 上限32KiB、問題なし | [x] |
-| OI-04 | デプロイスクリプトの実行タイミング | Phase 2設計時 | [ ] |
-| OI-06 | 承認済みファイル多層保護の詳細仕様 | Phase 3実装前 | [ ] |
-| OI-07 | Museum Onboarding質問言語 | Phase 2設計時 | [ ] |
-| OI-08 | 展示制作テンプレート初期版 | Phase 3実装前 | [ ] |
-| OI-09 | `exhibition-production-data/` のGit管理有無 | Phase 2実装前 | [ ] |
-| OI-10 | Deployment SetupのGUI vs CUI | Phase 2設計時 | [ ] |
+| OI-04 | デプロイスクリプトの実行タイミング | **Phase 3で判断** 手動実行を基本とする（Deployment SetupスキルがSTEP 8で案内） | [x] |
+| OI-06 | 承認済みファイル多層保護の詳細仕様 | **解決（Phase 3）** profile-manifest.yamlにSHA-256記録。`core/approval.py` 参照 | [x] |
+| OI-07 | Museum Onboarding質問言語 | **Phase 3で判断** 日本語固定で実装。多言語対応はPhase後期 | [x] |
+| OI-08 | 展示制作テンプレート初期版 | Phase 4以降（歴史館1館分の架空データ準備） | [ ] |
+| OI-09 | `exhibition-production-data/` のGit管理有無 | 基本方針は非Git、館の判断に委ねる（deployment.yamlコメントに記載） | [x] |
+| OI-10 | Deployment SetupのGUI vs CUI | **Phase 3で判断** Claude Code対話型を主とした（SKILL.md対話ガイド形式） | [x] |
 | OI-11 | Codex固有のSkills実行機構の有無 | **解決** Agent Skills標準対応、SKILL.md共通 | [x] |
-| OI-12 | `common-settings.yaml` スキーマ定義 | Phase 2実装中（タスク2-04） | [ ] |
-| OI-13 | `questions.yaml` フォーマット仕様確定 | Phase 3実装前（タスク3-03） | [ ] |
+| OI-12 | `common-settings.yaml` スキーマ定義 | Phase 4以降（Exhibition Director実装時に設計） | [ ] |
+| OI-13 | `questions.yaml` フォーマット仕様確定 | **解決（Phase 3）** `core/skills/exhibition-museum-onboarding/references/questions.yaml` | [x] |

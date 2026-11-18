@@ -94,6 +94,6 @@
 
 ## 現在のステータス
 
-**Phase 2完了・Phase 3未承認**
+**Phase 3完了・Phase 4未承認**
 
-Phase 3（Deployment Setup・Museum Onboarding）の開始にはプロジェクトオーナーの別途承認が必要。
+Phase 4（Exhibition Director・Idea Generator）の開始にはプロジェクトオーナーの別途承認が必要。

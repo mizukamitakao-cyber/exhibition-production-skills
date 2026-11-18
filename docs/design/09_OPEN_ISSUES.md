@@ -42,6 +42,17 @@
 | OI-02 | Codex AGENTS.mdの制約 | 上限32KiB。11スキル分の指示（~7KB）は余裕で収まる |
 | OI-11 | Codex固有のSkills実行機構 | Agent Skills open standard 対応。SKILL.mdフォーマット共通。配置先は `.agents/skills/`。`adapters/codex/README.md` に詳細記録 |
 
+**解決済み（Phase 3実装中）：**
+
+| ID | 課題 | 決定内容 |
+|----|------|---------|
+| OI-01 | Claude Codeプロジェクトレベルスキル配置の動作確認 | 確定：`.claude/skills/` はプロジェクトレベルで認識される（Phase 3セッション開始時に `exhibition-oi01-test` がスキル一覧に表示） |
+| OI-04 | デプロイスクリプトの実行タイミング | 手動実行を基本とする。Deployment Setupスキル（STEP 8）が `python scripts/deploy.py` の実行を案内する |
+| OI-06 | 承認済みファイル多層保護の詳細仕様 | `profile-manifest.yaml`（`{museum_id}/profile-manifest.yaml`）にSHA-256を記録する方式で確定。`core/approval.py` に実装。`core/models/profile_manifest.py` にモデル定義 |
+| OI-07 | Museum Onboarding質問言語 | 日本語固定で実装。多言語対応はPhase後期以降に検討 |
+| OI-10 | Deployment SetupのGUI vs CUI | Claude Code対話型を主とした。SKILL.md対話ガイド形式で10ステップのセットアップを実現 |
+| OI-13 | `questions.yaml` フォーマット仕様 | `core/skills/exhibition-museum-onboarding/references/questions.yaml` として確定。`version`・`phases`（phase_id/display_name/priority/questions）・`domain_questions` の3セクション構成。各質問に `id/text/field/field_type/required` を定義 |
+
 ---
 
 ## 設計上の仮定（後続Phaseで検証が必要）
