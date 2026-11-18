@@ -8,6 +8,8 @@ from core.models.source_registry import SourceRegistry
 from core.models.review_record import ReviewRecord
 from core.models.approval_record import ApprovalRecord
 from core.models.operation_record import OperationRecord
+from core.models.idea_list import IdeaList, IdeaEntry
+from core.models.story_structure import StoryStructure, StorySection
 
 __all__ = [
     "MuseumProfile",
@@ -21,4 +23,8 @@ __all__ = [
     "ReviewRecord",
     "ApprovalRecord",
     "OperationRecord",
+    "IdeaList",
+    "IdeaEntry",
+    "StoryStructure",
+    "StorySection",
 ]

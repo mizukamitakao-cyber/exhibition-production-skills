@@ -2,6 +2,140 @@
 
 ---
 
+## 2026-11-18 ── Phase 7 完了
+
+### 実施内容
+
+**Exhibition Visual Designer スキル**
+- `core/skills/exhibition-visual-designer/SKILL.md` — パネルHTML/CSS試作生成スキル
+- `scripts/visual_designer_cli.py` — Visual Designer CLI（generate/save-concept/status）
+- `core/visual_designer.py` — HTML生成・保存・一覧（外部依存なしのMarkdown→HTML変換含む）
+
+**Codex アダプター完成**
+- `adapters/codex/generate-instructions.py` — 修正: フロントマター description のみ収録（60KiB→4.9KiB、OI-02 32KiB制限に適合）
+- `adapters/codex/generate-skills.py` — 11スキルを `.agents/skills/` にデプロイ確認
+- `AGENTS.md` — 11スキル・4.9KiB で生成
+
+**受入試験 AT-10 Lite**
+- `tests/acceptance/test_at10_lite.py` — 22件（AGENTS.md生成・フロントマター・スキル構造・Visual Designer HTML・MuseumProfile互換性）
+
+**導入パッケージ**
+- `README.md` — 製品全体 README（スキル一覧・インストール・クイックスタート・データ構造・CLI一覧）
+
+**テスト結果：264/264件合格（4.26秒）**
+
+| テストファイル | 件数 | 内容 |
+|--------------|-----|------|
+| `tests/acceptance/test_at10_lite.py` | 22 | AT-10 Lite: Codex互換性・Visual Designer |
+| Phase 2〜6 既存テスト | 242 | 継続合格 |
+
+---
+
+## 2026-11-18 ── Phase 6 完了
+
+### 実施内容
+
+**Exhibition Writer スキル**
+- `core/skills/exhibition-writer/SKILL.md` — 新規原稿作成・改訂モード（原本保持）
+- `scripts/writer_cli.py` — 原稿管理CLI（save/start-revision/set-status/check-prerequisite/status）
+- `core/writer.py` — 原稿管理（save/load/list/create_revision/register_artifact/check_prerequisite）
+
+**Exhibition Advocate スキル**
+- `core/skills/exhibition-advocate/SKILL.md` — 5観点の批判的検討・指摘の採否記録
+- Advocate は成果物を直接変更しない（採否は担当者が決定）
+
+**Exhibition Reviewer スキル**
+- `core/skills/exhibition-reviewer/SKILL.md` — 要件検証（文字数・出典・表記・形式）
+- `scripts/review_cli.py` — レビュー・承認管理CLI（create-review/add-finding/resolve-finding/complete-review/create-approval/status）
+- `core/review_manager.py` — ReviewRecord・ApprovalRecord管理
+
+**テスト結果：242/242件合格（3.96秒）**
+
+| テストファイル | 件数 | 内容 |
+|--------------|-----|------|
+| `tests/unit/test_writer.py` | 18 | writer.py ユニットテスト |
+| `tests/unit/test_review_manager.py` | 17 | review_manager.py ユニットテスト |
+| `tests/acceptance/test_at_phase6.py` | 17 | AT-02後半・AT-05・AT-06・AT-07 受入試験 |
+| Phase 2〜5 既存テスト | 191 | 継続合格 |
+
+### 設計判断
+
+- Advocate と Reviewer は共通の `review_manager.py` / `review_cli.py` を使用。`reviewer_role` フィールドで区別する
+- `create_revision_manuscript` は原本を上書きせず新バージョン番号のみを返す。保存は呼び出し元（Writerスキル）が行う
+- `check_prerequisite_approved` により、スキルが前提成果物の承認状態を確認してから処理を開始できる
+
+---
+
+## 2026-11-18 ── Phase 5 完了
+
+### 実施内容
+
+**Exhibition Researcher スキル**
+- `core/skills/exhibition-researcher/SKILL.md` — 出典誠実性ルール付き調査フロー
+- `scripts/research_cli.py` — 出典管理CLI（create/add-source/mark-verified/record-usage/save-memo/status/get-unverified）
+- `core/researcher.py` — 出典管理（create/add/update/mark_verified/mark_unverified/get_unverified/record_usage/save_memo/load_memo）
+
+**Exhibition Planner スキル**
+- `core/skills/exhibition-planner/SKILL.md` — 企画書作成・承認フロー
+- `scripts/planner_cli.py` — 企画書管理CLI（create/save-plan/set-status/status）
+- `core/planner.py` — 企画書・artifact-manifest管理
+
+**Exhibition Story Designer スキル**
+- `core/skills/exhibition-story-designer/SKILL.md` — 章立て・構成表設計フロー
+- `scripts/story_cli.py` — 構成表管理CLI（create/add-section/reorder/set-status/status）
+- `core/story_designer.py` — 構成表管理・Markdown生成
+- `core/models/story_structure.py` — StorySection・StoryStructureモデル
+
+**テスト結果：191/191件合格（3.20秒）**
+
+| テストファイル | 件数 | 内容 |
+|--------------|-----|------|
+| `tests/unit/test_researcher.py` | 19 | researcher.py ユニットテスト |
+| `tests/unit/test_planner.py` | 17 | planner.py ユニットテスト |
+| `tests/unit/test_story_designer.py` | 16 | story_designer.py ユニットテスト |
+| `tests/acceptance/test_at04.py` | 13 | AT-04 出典管理受入試験 |
+| Phase 2〜4 既存テスト | 126 | 継続合格 |
+
+### 設計判断
+
+- `artifact-manifest.yaml` は `plan/` ディレクトリに配置。将来的に他の成果物タイプ（story, manuscript等）も同じマニフェストで管理できる構造
+- 構成表は YAML（`story-structure-vN.yaml`）と Markdown（`story-structure-vN.md`）の2形式を自動保存。YAMLはデータとして、Markdownは可読性・レビュー用
+- 出典の `verification_status` はデフォルト `"unverified"`。`mark_verified` を明示的に呼ぶまで確認済みにならない（誠実性ルールの実装）
+
+---
+
+## 2026-11-18 ── Phase 4 完了
+
+### 実施内容
+
+**Exhibition Director スキル**
+- `core/skills/exhibition-director/SKILL.md` — 新規案件作成・状態確認・ブリーフヒアリング・次フェーズ案内
+- `scripts/project_cli.py` — project管理CLI（create/status/list/check-prerequisites/advance-phase/update-brief）
+- `core/director.py` — Project管理（create/load/save/list/find_profile/advance_phase）
+
+**Idea Generator スキル**
+- `core/skills/exhibition-idea-generator/SKILL.md` — アイディア3〜5個生成・比較表・選定フロー
+- `scripts/idea_cli.py` — アイディア管理CLI（create/add/select/reject/status）
+- `core/ideas.py` — アイディア管理（create/add/select/reject/comparison MD生成）
+- `core/models/idea_list.py` — IdeaEntry・IdeaListモデル
+
+**テスト結果：126/126件合格（2.66秒）**
+
+| テストファイル | 件数 | 内容 |
+|--------------|-----|------|
+| `tests/unit/test_director.py` | 16 | director.py ユニットテスト |
+| `tests/unit/test_ideas.py` | 20 | ideas.py ユニットテスト |
+| `tests/acceptance/test_at02_first_half.py` | 20 | AT-02前半 受入試験 |
+| Phase 2〜3 既存テスト | 70 | 継続合格 |
+
+### 設計判断
+
+- `selected_idea_id` は `exhibition-project.yaml` ではなく `ideas/idea-list.yaml` に保存。プロジェクトモデルへの変更を最小化し、アイディア管理を独立して扱えるようにした
+- 比較表（`ideas/comparison.md`）は add/select/reject のたびに自動再生成
+- `update-brief` サブコマンドを project_cli.py に追加。Exhibition Director スキルがSTEP 4対話後にブリーフを段階更新できる設計
+
+---
+
 ## 2026-11-18 ── Phase 1 完了
 
 ### 実施内容

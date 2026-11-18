@@ -78,48 +78,58 @@
 
 ## Phase 4 ── Exhibition Director・Idea Generator
 
-**承認状態：未着手（Phase 3完了後に承認手続き）**
+**承認状態：完了（2026-11-18）**
 
-- [ ] Exhibition Director スキル実装
-- [ ] Idea Generator スキル実装
-- [ ] `exhibition-project.yaml` の作成・管理
-- [ ] 受入試験 AT-02（前半：アイディア創出まで）
+**完了条件：** Director主導の対話で案件を作成し、アイディアを生成・選定できる
+
+- [x] Exhibition Director スキル実装 — `core/skills/exhibition-director/SKILL.md`
+- [x] Idea Generator スキル実装 — `core/skills/exhibition-idea-generator/SKILL.md`
+- [x] `exhibition-project.yaml` の作成・管理 — `core/director.py`、`scripts/project_cli.py`
+- [x] アイディア管理 — `core/ideas.py`、`core/models/idea_list.py`、`scripts/idea_cli.py`
+- [x] 受入試験 AT-02（前半：アイディア創出まで）— `tests/acceptance/test_at02_first_half.py` 20件全合格
 
 ---
 
 ## Phase 5 ── Researcher・Planner・Story Designer
 
-**承認状態：未着手（Phase 4完了後に承認手続き）**
+**承認状態：完了（2026-11-18）**
 
-- [ ] Researcher スキル実装（出典誠実性ルール含む）
-- [ ] Planner スキル実装
-- [ ] Story Designer スキル実装
-- [ ] `source-registry.yaml` 管理機能
-- [ ] 受入試験 AT-04（出典管理テスト）
+**完了条件：** 出典付き企画書と展示構成表を作成できる
+
+- [x] Researcher スキル実装（出典誠実性ルール含む）— `core/skills/exhibition-researcher/SKILL.md`
+- [x] Planner スキル実装 — `core/skills/exhibition-planner/SKILL.md`
+- [x] Story Designer スキル実装 — `core/skills/exhibition-story-designer/SKILL.md`
+- [x] `source-registry.yaml` 管理機能 — `core/researcher.py`、`scripts/research_cli.py`
+- [x] 企画書管理機能 — `core/planner.py`、`scripts/planner_cli.py`
+- [x] 展示構成表管理機能 — `core/story_designer.py`、`core/models/story_structure.py`、`scripts/story_cli.py`
+- [x] 受入試験 AT-04（出典管理テスト）— `tests/acceptance/test_at04.py` 13件全合格
 
 ---
 
 ## Phase 6 ── Exhibition Writer・Advocate・Reviewer
 
-**承認状態：未着手（Phase 5完了後に承認手続き）**
+**承認状態：完了（2026-11-18）**
 
-- [ ] Exhibition Writer スキル実装（改訂モード含む）
-- [ ] Advocate スキル実装
-- [ ] Reviewer スキル実装
-- [ ] `review-record`・`approval-record` 管理機能
-- [ ] 受入試験 AT-02〜AT-07
+**完了条件：** 原稿制作・改訂・品質検証の完全サイクルが動作する
+
+- [x] Exhibition Writer スキル実装（改訂モード含む）— `core/skills/exhibition-writer/SKILL.md`
+- [x] Advocate スキル実装 — `core/skills/exhibition-advocate/SKILL.md`
+- [x] Reviewer スキル実装 — `core/skills/exhibition-reviewer/SKILL.md`
+- [x] `review-record`・`approval-record` 管理機能 — `core/review_manager.py`、`scripts/review_cli.py`
+- [x] 原稿管理機能 — `core/writer.py`、`scripts/writer_cli.py`
+- [x] 受入試験 AT-02後半・AT-05・AT-06・AT-07 — `tests/acceptance/test_at_phase6.py` 17件全合格
 
 ---
 
 ## Phase 7 ── Visual Designer・Codex対応・製品化
 
-**承認状態：未着手（Phase 6完了後に承認手続き）**
+**承認状態：完了（2026-11-18）**
 
-- [ ] Visual Designer スキル実装（HTML/CSS形式試作）
-- [ ] Codex アダプター実装（指示層・実行層）
-- [ ] Codex環境での動作検証
-- [ ] 受入試験 AT-10（環境互換テスト）
-- [ ] 導入パッケージ整備（README・操作マニュアル・インストール手順）
+- [x] Visual Designer スキル実装（HTML/CSS形式試作）— `core/skills/exhibition-visual-designer/SKILL.md`
+- [x] Codex アダプター完成（指示層・実行層）— `adapters/codex/generate-instructions.py`（32KiB修正済）、`generate-skills.py` 11スキルデプロイ確認
+- [x] Codex互換性検証（Python層）— `AGENTS.md` 4.9KiB、`.agents/skills/` 構造確認
+- [x] 受入試験 AT-10 Lite — `tests/acceptance/test_at10_lite.py` 22件全合格
+- [x] 導入パッケージ整備 — `README.md` 製品全体README
 
 ---
 
