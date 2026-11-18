@@ -11,6 +11,20 @@ BASE_TEMPLATE = Path(__file__).parent / "AGENTS.md.base"
 OUTPUT = PROJECT_ROOT / "AGENTS.md"
 
 
+def _extract_frontmatter_description(skill_md_text: str) -> str:
+    """YAML フロントマターから description を抽出する。"""
+    lines = skill_md_text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return ""
+    in_fm = False
+    for line in lines[1:]:
+        if line.strip() == "---":
+            break
+        if line.startswith("description:"):
+            return line[len("description:"):].strip().strip('"').strip("'")
+    return ""
+
+
 def generate_agents_md() -> None:
     base = BASE_TEMPLATE.read_text(encoding="utf-8") if BASE_TEMPLATE.exists() else ""
 
@@ -22,7 +36,13 @@ def generate_agents_md() -> None:
             skill_md = skill_dir / "SKILL.md"
             if skill_md.exists():
                 content = skill_md.read_text(encoding="utf-8")
-                skills_section_parts.append(f"\n### {skill_dir.name}\n\n{content}")
+                description = _extract_frontmatter_description(content)
+                entry = (
+                    f"\n### {skill_dir.name}\n\n"
+                    f"{description}\n\n"
+                    f"詳細手順: `.agents/skills/{skill_dir.name}/SKILL.md`"
+                )
+                skills_section_parts.append(entry)
 
     agents_content = base.replace("{{SKILLS_SECTION}}", "\n".join(skills_section_parts))
     OUTPUT.write_text(agents_content, encoding="utf-8")
