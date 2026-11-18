@@ -1,0 +1,21 @@
+# domain-settings.yaml — 自然史分野
+
+schema_version: "1.0"
+domain: "natural-history"
+
+research:
+  priority_sources:
+    - "査読済み学術論文（生物・地質・古生物等）"
+    - "学会誌・専門誌"
+    - "標本記録・収蔵データベース"
+  citation_style: "著者・年方式（例: Smith, 2020）推奨"
+
+writing:
+  style_guidance: "科学的正確性を重視する。学名は斜体表記。一般名と学名を併記する。"
+
+onboarding:
+  domain_questions:
+    - 専門とする自然史分野（古生物・生物・地質・鉱物等）
+    - 標本・資料のデジタルデータ利用方針
+    - 研究者との連携方針
+    - 学術的に議論のある説の取り扱い方針

@@ -1,0 +1,43 @@
+# 環境依存設定（秘密情報を含む可能性あり）
+deployment.yaml
+
+# Codex生成ファイル（環境依存、deployスクリプトで生成）
+AGENTS.md
+
+# Claude Codeスキル（deployスクリプトで生成）
+.claude/skills/
+
+# 自動生成スキーマ（Pydanticモデルから生成）
+schemas/*.schema.json
+
+# 秘密情報
+*.secret
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.Python
+
+# テスト
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 仮想環境
+.venv/
+venv/
+env/
+
+# エディタ
+.vscode/settings.json
+.idea/
+*.swp
+*.swo

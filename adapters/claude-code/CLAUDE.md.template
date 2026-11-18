@@ -1,0 +1,13 @@
+# 企画展示制作AI Skills — スキル設定テンプレート
+# このファイルは adapters/claude-code/deploy.py によって CLAUDE.md に統合されます。
+# 手動編集したものは次回デプロイ時に上書きされます。
+
+## 企画展示制作スキルの設定
+
+以下のスキルが利用可能です（deployment.yaml の設定に応じてインストール済み）:
+
+{{SKILLS_LIST}}
+
+## スキル自動トリガー
+
+{{TRIGGERS_SECTION}}

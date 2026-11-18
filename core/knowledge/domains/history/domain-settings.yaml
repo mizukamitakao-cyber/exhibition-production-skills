@@ -1,0 +1,21 @@
+# domain-settings.yaml — 歴史分野
+
+schema_version: "1.0"
+domain: "history"
+
+research:
+  priority_sources:
+    - "一次資料（原文書・公文書・古記録）"
+    - "学術論文・研究書"
+    - "収蔵品データベース"
+  citation_style: "注釈形式（脚注）推奨"
+
+writing:
+  style_guidance: "正確性を重視した客観的記述。歴史的事実と解釈を明確に区別する。"
+
+onboarding:
+  domain_questions:
+    - 収蔵する主な時代・地域
+    - 専門とする資料の種類（古文書・考古資料・民具・写真等）
+    - 一次資料の閲覧・利用許諾方針
+    - 歴史的解釈に関する方針（複数の説が存在する場合の扱い）

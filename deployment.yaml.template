@@ -1,0 +1,33 @@
+# deployment.yaml.template
+# このファイルをコピーして deployment.yaml を作成し、環境に合わせて編集してください。
+# deployment.yaml は .gitignore に含まれており、Git管理外です。
+# 秘密情報（APIキー等）はこのファイルに書かないでください。
+
+product_version: "0.1.0"
+
+# データ保存先ディレクトリ（絶対パス推奨）
+# 例: "C:/Users/username/Documents/exhibition-production-data"
+data_root: ""
+
+# Claude Code スキルのインストール先（通常は変更不要）
+skills_root: "~/.claude/skills"
+
+# 有効にする専門分野ドメイン（使用する分野のコメントを外してください）
+domains:
+  - history
+  # - art
+  # - natural-history
+  # - science
+
+# 動作環境
+environment:
+  os: ""           # windows | mac | linux
+  ai_tools:
+    - claude-code
+    # - codex
+
+# 導入記録（Deployment Setupスキルが自動更新）
+deployment:
+  deployed_at: null
+  deployed_by: null
+  last_updated: null

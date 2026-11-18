@@ -1,0 +1,21 @@
+# domain-settings.yaml — 美術分野
+
+schema_version: "1.0"
+domain: "art"
+
+research:
+  priority_sources:
+    - "作品記録・来歴資料"
+    - "学術論文・図録"
+    - "作家資料・インタビュー"
+  citation_style: "注釈形式（脚注）推奨"
+
+writing:
+  style_guidance: "作品の特性・制作背景・文化的文脈を丁寧に記述する。"
+
+onboarding:
+  domain_questions:
+    - 収蔵・展示する主な作品種別（絵画・彫刻・工芸・現代美術等）
+    - 著作権・利用許諾の管理方針
+    - 作品画像のAI利用方針
+    - 作家・制作者のプライバシー方針

@@ -1,0 +1,2 @@
+# このディレクトリは scripts/generate_schemas.py によって自動生成される
+# *.schema.json は .gitignore で除外済み

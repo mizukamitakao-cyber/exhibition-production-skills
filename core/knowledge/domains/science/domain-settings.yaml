@@ -1,0 +1,21 @@
+# domain-settings.yaml — 科学・技術分野
+
+schema_version: "1.0"
+domain: "science"
+
+research:
+  priority_sources:
+    - "査読済み学術論文"
+    - "政府・学術機関の公式資料"
+    - "技術仕様書・特許文書"
+  citation_style: "著者・年方式（例: Suzuki, 2023）推奨"
+
+writing:
+  style_guidance: "正確性と分かりやすさを両立する。専門用語には平易な説明を添える。"
+
+onboarding:
+  domain_questions:
+    - 専門とする科学・技術分野
+    - 教育対象の年齢層・知識水準
+    - 実験・体験型展示の有無
+    - 最新技術情報の更新方針

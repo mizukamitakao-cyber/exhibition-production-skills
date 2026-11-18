@@ -1,0 +1,25 @@
+# common-settings.yaml
+# 製品全体で適用される安全制約。館別設定・案件別設定から上書き不可。
+
+schema_version: "1.0"
+
+# AI 入力に絶対に渡してはならないデータ種別（下位から解除不可）
+ai_input_absolute_restrictions:
+  - personal_information
+  - unpermitted_original_materials
+
+# 書き込み制約
+write_restrictions:
+  forbid_symlink: true
+  max_path_length: 240
+  require_data_root: true
+
+# 承認フローの最低要件（下位から解除不可）
+approval_requirements:
+  manual_approval_required: true      # 自動承認禁止
+  backup_before_revision: true        # 改訂前バックアップ必須
+
+# セキュリティ設定
+security:
+  external_transmission_requires_confirmation: true
+  audit_all_writes: true
