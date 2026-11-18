@@ -23,36 +23,38 @@
 
 ### 環境・プロジェクト構成
 
-- [ ] 2-00 `deployment.yaml.template` と `.gitignore` の作成
-- [ ] 2-01 Gitリポジトリの初期化と初期コミット（依存: 2-00）
-- [ ] 2-02 Pythonプロジェクト構成 — `pyproject.toml`、`requirements.txt`（依存: 2-01）
+- [x] 2-00 `deployment.yaml.template` と `.gitignore` の作成
+- [x] 2-01 Gitリポジトリの初期化と初期コミット
+- [x] 2-02 Pythonプロジェクト構成 — `pyproject.toml`、`requirements.txt`
 
 ### データモデル・スキーマ
 
-- [ ] 2-03 Pydanticモデル実装 — museum-profile（依存: 2-02）
-- [ ] 2-04 Pydanticモデル実装 — 全9モデル（依存: 2-03）
-- [ ] 2-05 JSON Schema自動生成スクリプト — `scripts/generate_schemas.py`（依存: 2-04）
+- [x] 2-03 Pydanticモデル実装 — museum-profile
+- [x] 2-04 Pydanticモデル実装 — 全9モデル
+- [x] 2-05 JSON Schema自動生成スクリプト — 9件生成確認済み
 
 ### 保存・整合性・監査
 
-- [ ] 2-06 パス検証・アトミック書き込み実装 — `core/storage.py`（依存: 2-02）
-- [ ] 2-07 ハッシュ整合性検証実装 — `core/integrity.py`（依存: 2-06）
-- [ ] 2-08 監査ログ実装 — `core/audit.py`（依存: 2-06）
+- [x] 2-06 パス検証・アトミック書き込み実装 — `core/storage.py`
+- [x] 2-07 ハッシュ整合性検証実装 — `core/integrity.py`
+- [x] 2-08 監査ログ実装 — `core/audit.py`
 
 ### 設定・デプロイ
 
-- [ ] 2-09 `deployment.yaml` 読み込み・4階層設定解決 — `core/config.py`（依存: 2-02）
-- [ ] 2-10 Claude Code デプロイスクリプト — `adapters/claude-code/deploy.py`、`scripts/deploy.py`（依存: 2-09）
+- [x] 2-09 `deployment.yaml` 読み込み・4階層設定解決 — `core/config.py`
+- [x] 2-10 Claude Code デプロイスクリプト — `adapters/claude-code/deploy.py`、`scripts/deploy.py`
 
 ### 調査・検証
 
-- [ ] 2-11 **Codex Skills 仕様調査**（OI-02・OI-11） — `adapters/codex/README.md` に記録（依存: 2-10）
-- [ ] 2-12 OI-01 検証 — プロジェクトレベルスキル配置動作確認（依存: 2-10）
+- [x] 2-11 **Codex Skills 仕様調査**（OI-02・OI-11） — `adapters/codex/README.md` に記録
+  - OI-11確定: Codex は Agent Skills open standard 対応。SKILL.md 共通。配置先は `.agents/skills/`
+  - OI-02確定: AGENTS.md 上限 32KiB（余裕あり）
+- [x] 2-12 OI-01 検証 — `.claude/skills/exhibition-oi01-test/` にテストスキル配置済み。次回セッションで `/exhibition-oi01-test` 呼び出しで確認
 
 ### テスト
 
-- [ ] 2-13 単体テスト — `tests/unit/test_storage.py`、`tests/unit/test_integrity.py`（依存: 2-07）
-- [ ] 2-14 AT-10 Lite — Codex互換性最小検証（依存: 2-11）
+- [x] 2-13 単体テスト — 25件全合格（test_storage.py 17件、test_integrity.py 8件）
+- [ ] 2-14 AT-10 Lite — Codex互換性最小検証（Codex環境での実施はPhase 7）
 
 ---
 
@@ -125,14 +127,14 @@
 
 | ID | 課題 | 解決目標 | 状態 |
 |----|------|---------|------|
-| OI-01 | Claude Codeプロジェクトレベルスキル配置の動作確認 | Phase 2実装前（タスク2-12） | [ ] |
-| OI-02 | Codex AGENTS.mdの制約確認 | Phase 2初期（タスク2-11） | [ ] |
+| OI-01 | Claude Codeプロジェクトレベルスキル配置の動作確認 | Phase 3実装前（次回セッションで確認） | [>] |
+| OI-02 | Codex AGENTS.mdの制約確認 | **解決** 上限32KiB、問題なし | [x] |
 | OI-04 | デプロイスクリプトの実行タイミング | Phase 2設計時 | [ ] |
 | OI-06 | 承認済みファイル多層保護の詳細仕様 | Phase 3実装前 | [ ] |
 | OI-07 | Museum Onboarding質問言語 | Phase 2設計時 | [ ] |
 | OI-08 | 展示制作テンプレート初期版 | Phase 3実装前 | [ ] |
 | OI-09 | `exhibition-production-data/` のGit管理有無 | Phase 2実装前 | [ ] |
 | OI-10 | Deployment SetupのGUI vs CUI | Phase 2設計時 | [ ] |
-| OI-11 | Codex固有のSkills実行機構の有無 | Phase 2初期（タスク2-11） | [ ] |
+| OI-11 | Codex固有のSkills実行機構の有無 | **解決** Agent Skills標準対応、SKILL.md共通 | [x] |
 | OI-12 | `common-settings.yaml` スキーマ定義 | Phase 2実装中（タスク2-04） | [ ] |
 | OI-13 | `questions.yaml` フォーマット仕様確定 | Phase 3実装前（タスク3-03） | [ ] |

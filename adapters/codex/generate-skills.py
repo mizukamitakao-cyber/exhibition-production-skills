@@ -1,19 +1,58 @@
 #!/usr/bin/env python3
 """
-Codex Skills 実行層の生成スクリプト（Phase 2 調査後に設計・実装）。
+Codex 向けスキルデプロイスクリプト。
+core/skills/ から .agents/skills/ へスキルをコピーする。
 
-現在の状態:
-  OI-11（Codex 固有の Skills/Tools 実行機構の有無）の調査結果待ち。
-  調査結果は adapters/codex/README.md に記録する。
-
-設計方針（調査結果による分岐）:
-  - Codex 固有の Skills 実行機構が存在する場合:
-    その形式（SKILL.md 相当）に変換するスクリプトをここに実装する。
-  - 存在しない場合:
-    generate-instructions.py に統合するか、このスクリプトを廃止する。
+Codex は Agent Skills open standard (agentskills.io) をサポートし、
+SKILL.md フォーマットは Claude Code と共通。
+スキルディレクトリのみ異なる:
+  Claude Code: ~/.claude/skills/<name>/ または .claude/skills/<name>/
+  Codex      : $HOME/.agents/skills/<name>/ または .agents/skills/<name>/
 """
+from __future__ import annotations
 
-raise NotImplementedError(
-    "Codex Skills 実行層の仕様が未確定です。\n"
-    "adapters/codex/README.md の OI-11 調査結果を確認してください。"
-)
+import shutil
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+CORE_SKILLS = PROJECT_ROOT / "core" / "skills"
+
+
+def deploy_to_codex(scope: str = "project") -> None:
+    """
+    scope: "project" → .agents/skills/ (リポジトリ内、チーム共有)
+           "user"    → $HOME/.agents/skills/ (ユーザーローカル)
+    """
+    if scope == "user":
+        dest_root = Path.home() / ".agents" / "skills"
+    else:
+        dest_root = PROJECT_ROOT / ".agents" / "skills"
+
+    if not CORE_SKILLS.exists():
+        print(f"スキルディレクトリが存在しません: {CORE_SKILLS}")
+        return
+
+    dest_root.mkdir(parents=True, exist_ok=True)
+    installed = 0
+
+    for skill_dir in sorted(CORE_SKILLS.iterdir()):
+        if not skill_dir.is_dir():
+            continue
+        dest = dest_root / skill_dir.name
+        if dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(skill_dir, dest)
+        print(f"  インストール: {skill_dir.name} → {dest}")
+        installed += 1
+
+    if installed == 0:
+        print("インストール対象のスキルがありません。")
+    else:
+        print(f"\n{installed} 件のスキルを Codex ({scope}) にインストールしました。")
+
+
+if __name__ == "__main__":
+    scope_arg = sys.argv[1] if len(sys.argv) > 1 else "project"
+    sys.path.insert(0, str(PROJECT_ROOT))
+    deploy_to_codex(scope=scope_arg)

@@ -94,6 +94,6 @@
 
 ## 現在のステータス
 
-**Phase 1完了・Phase 2未承認**
+**Phase 2完了・Phase 3未承認**
 
-Phase 2（開発環境構築・共通基盤）の開始にはプロジェクトオーナーの別途承認が必要。
+Phase 3（Deployment Setup・Museum Onboarding）の開始にはプロジェクトオーナーの別途承認が必要。

@@ -7,6 +7,9 @@ AGENTS.md
 # Claude Codeスキル（deployスクリプトで生成）
 .claude/skills/
 
+# Codexスキル（deployスクリプトで生成）
+.agents/skills/
+
 # 自動生成スキーマ（Pydanticモデルから生成）
 schemas/*.schema.json
 
